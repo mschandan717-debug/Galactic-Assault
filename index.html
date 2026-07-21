@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galactic Assault - Arcade 2D Space Shooter</title>
+  <meta name="description" content="Engage in high-octane space combat in Galactic Assault. Smooth WASD/Arrow controls, Web Audio SFX, scrolling starfields, diverse enemy waves, power-ups, and epic boss battles.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="game-container">
+    <!-- CRT Scanline overlay effect -->
+    <div class="scanline-overlay"></div>
+
+    <!-- Main Game Canvas -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD Overlay -->
+    <div id="hud">
+      <!-- Top Bar -->
+      <div class="hud-top">
+        <div class="status-bars">
+          <!-- Health Bar -->
+          <div class="bar-container">
+            <div class="bar-label health-label">
+              <span>HULL INTEGRITY</span>
+              <span id="health-val"></span>
+            </div>
+            <div class="bar-bg">
+              <div id="health-bar-fill" class="bar-fill"></div>
+            </div>
+          </div>
+
+          <!-- Shield Bar -->
+          <div class="bar-container">
+            <div class="bar-label shield-label">
+              <span>ENERGY SHIELD</span>
+              <span id="shield-val"></span>
+            </div>
+            <div class="bar-bg">
+              <div id="shield-bar-fill" class="bar-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Wave & Combo Info & Boss Health Bar -->
+        <div class="center-hud">
+          <div class="wave-display">WAVE <span id="wave-num">1</span></div>
+          <div id="combo-display" class="combo-display">
+            <span id="combo-count">1.5x COMBO!</span>
+          </div>
+
+          <!-- Boss Health Bar -->
+          <div id="boss-hud-bar" class="boss-bar-container" style="display: none;">
+            <div class="boss-bar-title">⚠️ DREADNOUGHT BOSS ⚠️</div>
+            <div class="bar-bg boss-bar-bg">
+              <div id="boss-bar-fill" class="bar-fill boss-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Score & Audio -->
+        <div class="right-hud">
+          <div class="score-box">
+            <div class="score-title">SCORE</div>
+            <div id="score-val" class="score-value">0</div>
+            <div class="high-score-val">HIGH: <span id="high-score-val">0</span></div>
+          </div>
+          
+          <button id="audio-toggle" class="audio-toggle-btn" style="margin-top: 10px; float: right;">
+            🔊 SFX: <span id="audio-status">ON</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="hud-bottom">
+        <div class="weapon-status">
+          <span id="weapon-lvl-text" class="weapon-badge">LVL 1 LASER</span>
+          <div class="bomb-counter">
+            <div class="bomb-icon"></div>
+            <span>BOMBS: <strong id="bomb-count" style="color: #fff;">2</strong></span>
+          </div>
+        </div>
+
+        <div class="controls-hint">
+          [MOUSE / WASD] Move | [LEFT CLICK / SPACE] Fire | [B] Smart Bomb | [ESC/P] Pause
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Menu Screen -->
+    <div id="start-screen" class="overlay-screen active">
+      <div class="panel-card">
+        <h1 class="game-title">GALACTIC ASSAULT</h1>
+        <div class="game-subtitle">DEEP SPACE DEFENSE PROTOCOL</div>
+
+        <div class="controls-grid">
+          <div class="control-item">
+            <span class="key-badge">MOUSE / WASD</span>
+            <span>Smooth Steering</span>
+          </div>
+          <div class="control-item">
+            <span class="key-badge">LEFT CLICK / SPACE</span>
+            <span>Continuous Fire</span>
+          </div>
+          <div class="control-item">
+            <span class="key-badge">KEY [ B ]</span>
+            <span>EMP Smart Bomb</span>
+          </div>
+          <div class="control-item">
+            <span class="key-badge">KEY [ P / ESC ]</span>
+            <span>Pause Game</span>
+          </div>
+        </div>
+
+        <button id="btn-start" class="btn-arcade">LAUNCH MISSION</button>
+      </div>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="overlay-screen">
+      <div class="panel-card">
+        <h2 class="game-title">SYSTEM PAUSED</h2>
+        <div class="game-subtitle">MISSION SUSPENDED</div>
+        <button id="btn-resume" class="btn-arcade">RESUME MISSION</button>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="overlay-screen">
+      <div class="panel-card">
+        <h2 class="game-over-title">VESSEL DESTROYED</h2>
+        <div class="game-subtitle">MISSION FAILED</div>
+
+        <div class="stats-summary">
+          <div class="stat-row">
+            <span class="stat-label">FINAL SCORE</span>
+            <span id="final-score-val" class="stat-val">0</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">SECTOR REACHED</span>
+            <span class="stat-val">WAVE <span id="final-wave-val">1</span></span>
+          </div>
+        </div>
+
+        <div id="new-high-score-tag" class="new-high-score-tag" style="display: none;">
+          ★ NEW SECTOR HIGH SCORE RECORD! ★
+        </div>
+
+        <button id="btn-restart" class="btn-arcade">REDEPLOY SHIP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/game.js"></script>
+
+</body>
+</html>
